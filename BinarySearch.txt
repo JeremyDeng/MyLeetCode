@@ -1,6 +1,6 @@
 inport java.util.Arrays;
 public class BinarySearch{
-	public static in rank(int key, int[] a){
+	public static int rank(int key, int[] a){
 	int lo = 0;
 	int hi = a.length - 1;
 	while(lo <= hi){
