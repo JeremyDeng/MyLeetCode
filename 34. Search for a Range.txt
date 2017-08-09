@@ -1,0 +1,36 @@
+public class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int[] result = new int[2];
+        if(nums == null || nums.length == 0){
+           return new int[]{-1, -1};
+        }
+        
+        //find left index.
+        int lo = 0, hi = nums.length - 1;
+        while(lo < hi){
+            int mid = (lo + hi)/2;
+            if(nums[mid] < target){
+                lo = mid + 1;
+            }else{
+                hi = mid;
+            }  
+        }
+        if(target == nums[lo]) result[0] = lo;
+	    else result[0] = -1;
+    
+        //find right index.
+        hi = nums.length - 1;
+        while(lo < hi){
+            int mid = (lo + hi)/2 + 1;
+            if(nums[mid] > target){
+                hi = mid - 1;
+            }else{
+                lo = mid;
+            }
+        }
+        if(target == nums[hi]) result[1] = hi;
+	    else result[1] = -1;
+        
+        return result;
+    }
+}
