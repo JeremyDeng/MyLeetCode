@@ -1,0 +1,40 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+//time:O(n),space:O(n)
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        int carry = 0;
+        ListNode cur = dummy;
+        ListNode p1 = l1, p2 = l2;
+        while (p1 != null || p2 != null || carry != 0) {
+            if (p1 != null) {
+                carry += p1.val;
+                p1 = p1.next;
+            }
+            if (p2 != null) {
+                carry += p2.val;
+                p2 = p2.next;
+            }
+            cur.next = new ListNode(carry % 10);
+            carry /= 10;
+            cur = cur.next;
+        }
+        return dummy.next;
+    }
+}
+
+/*
+thinking:
+1.create a ListNode called dummy.
+  create variable carry to record number.
+  Use p1 and p2 instead of l1 and l2 so we won't change input listnode.
+2.Use a while loop to traverse linked lists.
+  Each time we calculate the mod of carry and add it to result.
+*/
