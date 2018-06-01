@@ -1,0 +1,24 @@
+//time:O(n),space:O(n)
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        HashSet<Character> set = new HashSet<>();
+        int res = 0, start = 0, end = 0;
+        while (start < s.length() && end < s.length()) {
+            if (set.contains(s.charAt(end))) {
+                set.remove(s.charAt(start++));
+            } else {
+                set.add(s.charAt(end++));
+                res = Math.max(res, set.size());
+            }
+        }
+        return res;
+    }
+}
+
+/*
+Thinking:
+1.Use HashSet to store longest substring.
+2.Index start records the inclusive starting point,
+  Index end records the exclusive ending point.
+3.Each time we add a new element into our set, we calculate the maximum of res.
+*/
