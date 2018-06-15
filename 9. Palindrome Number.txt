@@ -1,0 +1,21 @@
+//time:O(n), space:O(1)
+class Solution {
+    public boolean isPalindrome(int x) {
+        if (x < 0) return false;
+        int palindrome = x;
+        int reverse = 0;
+        while (x > 0) {
+            reverse = reverse * 10 + x % 10;
+            x /= 10;
+        }
+        return palindrome == reverse;
+    }
+}
+
+/*
+Thinking:
+1. Create integer variable palindrome to record initial value.
+2. Create integer variable reverse to record reversed value.
+3. In while loop, calculate quotient and mod of x.
+4. Compare initial value and reversed one.
+*/
