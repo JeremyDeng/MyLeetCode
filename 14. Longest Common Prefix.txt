@@ -1,0 +1,21 @@
+//time:O(n*l),space:O(1)
+//n is the number of strings in input array, and l is the length of the longest common prefix.
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        if (strs == null || strs.length == 0) return "";
+        String res = strs[0];
+        for (int i = 1; i < strs.length; i++) {
+            while (strs[i].indexOf(res) != 0) {
+                res = res.substring(0, res.length() - 1);
+            }
+        }
+        return res;
+    }
+}
+
+/*
+Thinking:
+1. Let first string be the pattern and compare with the rest.
+2. Use method indexOf to find the pattern in current string. Update pattern by cutting off last character.
+3. The complexity of Java's implementation of indexOf is O(m*n) where n and m are the length of the search string      and pattern respectively.
+*/
