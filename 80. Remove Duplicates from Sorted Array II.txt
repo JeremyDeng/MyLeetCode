@@ -1,0 +1,22 @@
+//time:O(n),sapce:O(1)
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        if (nums.length <= 2) return nums.length;
+        int res = 2;
+        for (int i = 2; i < nums.length; i++) {
+            if (nums[i] != nums[res - 2]) {
+                nums[res++] = nums[i];
+            }
+        }
+        return res;
+    }
+}
+
+/*
+Thinking:
+1. Keep first two elements and start from the third one.
+2. Traverse through the input array. If nums[i] != nums[res - 2], move two pointers for    one step.
+3. ATTENTION: 
+    26. Remove Duplicates from Sorted Array: nums[i] != nums[i - 1];
+    80. Remove Duplicates from Sorted Array II : nums[i] != nums[res - 2];
+*/
