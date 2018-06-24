@@ -1,0 +1,25 @@
+/* The knows API is defined in the parent class Relation.
+      boolean knows(int a, int b); */
+//time:O(n), space:O(1)
+public class Solution extends Relation {
+    public int findCelebrity(int n) {
+        int res = 0;
+        for (int i = 1; i < n; i++) {
+            if (knows(res, i)) {
+                res = i;
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            if ((i != res && knows(res, i)) || !knows(i, res)) return -1;
+        }
+        return res;
+    }
+}
+
+/*
+Thinking:
+1. Create a variable res, which means current potential celebrity.
+2. If res knows somebody, update i to our potential celebrity.
+3. Use for loop to check if res is really a celebrity.
+4. If i is not res but res knows i or i do not know res, we return -1;
+*/
