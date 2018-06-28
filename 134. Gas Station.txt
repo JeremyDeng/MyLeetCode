@@ -1,0 +1,33 @@
+//time:O(n),space:O(1)
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int sumGas = 0;
+        int sumCost = 0;
+        int start = 0;
+        int tank = 0;
+        for (int i = 0; i < gas.length; i++) {
+            sumGas += gas[i];
+            sumCost += cost[i];
+            tank += gas[i] - cost[i];
+            if (tank < 0) {
+                start = i + 1;
+                tank = 0;
+            }
+        }
+        if (sumGas < sumCost) {
+            return -1;
+        } else {
+            return start;
+        }
+    }
+}
+
+/*
+Thinking:
+1. If the sum of an array is positive, there must be a starting point that allows it
+   to go around the circle and keep accumulated sum positive.
+2. Treverse through the input array. Record sumGas and sumCost.
+3. Once tank is negtive, we update start to i + 1 and initiate tank to 0.
+   Because starting point won't be at any position between 0 and i.
+4. If sumGas - sumCost < 0, we can not find that point. Otherwise, return start.
+*/
