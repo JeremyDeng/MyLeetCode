@@ -1,0 +1,45 @@
+//1. Use sorting. time:O(nlogn),space:O(1)
+class Solution {
+    public int majorityElement(int[] nums) {
+        Arrays.sort(nums);
+        return nums[nums.length / 2];
+    }
+}
+
+//2. Use HashMap. time:O(n),space:O(n)
+class Solution {
+    public int majorityElement(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int res = 0;
+        for (int num : nums) {
+            if (!map.containsKey(num)) {
+                map.put(num, 1);
+            } else {
+                map.put(num, map.get(num) + 1);
+            }
+            if (map.get(num) > nums.length / 2) {
+                res = num;
+                break;
+            }
+        }
+        return res;
+    }
+}
+
+//3. Moore voting algorithm. time:O(n), space:O(1)
+class Solution {
+    public int majorityElement(int[] nums) {
+        int count = 0, res = 0;
+        for (int num : nums) {
+            if (count == 0) {
+                res = num;
+            }
+            if (num != res) {
+                count--;
+            } else {
+                count++;
+            }
+        }
+        return res;
+    }
+}
