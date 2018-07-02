@@ -1,0 +1,25 @@
+//time:O(n), space:O(1)
+class Solution {
+    public int shortestDistance(String[] words, String word1, String word2) {
+        int res = words.length;
+        int a = -1;
+        int b = -1;
+        for(int i = 0; i < words.length; i++){
+            if(words[i].equals(word1)){
+                a = i;
+            }else if(words[i].equals(word2)){
+                b = i;
+            }
+            if(a != -1 && b != -1){
+                res = Math.min(res, Math.abs(a - b));
+            }
+        }
+        return res;
+    }
+}
+
+/*
+Thinking:
+1. Set default value of two variables -1.
+2. Traverse through the input array words, calculate distance when a and b are found.
+*/
