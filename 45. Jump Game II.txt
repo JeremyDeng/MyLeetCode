@@ -1,0 +1,24 @@
+//time:O(n), space:O(1)
+class Solution {
+    public int jump(int[] nums) {
+        if (nums == null || nums.length < 2) return 0;
+        int jumps = 0, curEnd = 0, curMax = 0;
+        for (int i = 0; i < nums.length - 1; i++) {
+            curMax = Math.max(curMax, nums[i] + i);
+            if (i == curEnd) {
+                jumps++;
+                curEnd = curMax;
+            }
+        }
+        return jumps;
+    }
+}
+
+/*
+Thinking:
+1. The main idea is based on greedy. Let's say the range of the current jump is            
+   [curBegin, curEnd], curFarthest is the farthest point that all points in [curBegin, curEnd] can reach. 
+   Once the current point reaches curEnd, then trigger another jump, and set the new curEnd with curFarthest,
+   then keep the above steps.
+2. The range of i is 0 <= i < nums.length - 1. i can not reach last element coz it will trigger another jump.
+*/
