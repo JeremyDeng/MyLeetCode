@@ -1,0 +1,17 @@
+//time:O(n), space:O(1)
+class Solution {
+    public boolean canJump(int[] nums) {
+        int max = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (max < i) return false;
+            max = Math.max(nums[i] + i, max);
+        }
+        return true;
+    }
+}
+
+/*
+Thinking:
+1. Create variable max to record index of maximum jump.
+2. Return false if max can not reach i.
+*/
