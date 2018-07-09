@@ -1,0 +1,21 @@
+//time:O(n),space:O(1)
+class Solution {
+    public boolean increasingTriplet(int[] nums) {
+        int min = Integer.MAX_VALUE, secondMin = Integer.MAX_VALUE;
+        for (int num : nums) {
+            if (num <= min)
+                min = num;
+            else if (num <= secondMin)
+                secondMin = num;
+            else
+                return true;
+        }
+        return false;
+    }
+}
+
+/*
+Thinking:
+1. Create two variables min and secondMin to record two smallest elements.
+2. If we fing an element greater than these two, return true.
+*/
