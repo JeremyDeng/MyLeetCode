@@ -1,0 +1,61 @@
+//time:O(n),space:O(n)
+class Solution {
+    public int maximumGap(int[] nums) {
+        if(nums == null || nums.length < 2)
+            return 0;
+        // get the max and min value of the array
+        int len = nums.length;
+        int max = nums[0];
+        int min = nums[0];
+        for(int i = 0; i < len; i++){
+            max = Math.max(max, nums[i]);
+            min = Math.min(min, nums[i]);
+        }
+        // the minimum possibale gap, ceiling of the integer division
+        int gap = (int)Math.ceil((double)(max - min) / (len - 1));
+        int[] bucketsMin = new int[len - 1];
+        int[] bucketsMax = new int[len - 1];
+        Arrays.fill(bucketsMax, Integer.MIN_VALUE);
+        Arrays.fill(bucketsMin, Integer.MAX_VALUE);
+        // put numbers into buckets
+	for(int num : nums){
+            if(num == min || num == max)
+                continue;
+            int bucket = (num - min) / gap;
+            bucketsMin[bucket] = Math.min(num, bucketsMin[bucket]);
+            bucketsMax[bucket] = Math.max(num, bucketsMax[bucket]);
+        }
+        // scan the buckets for the max gap
+        int res = 0;
+        int pre = min;
+        for(int i = 0; i < len - 1; i++){
+            if(bucketsMin[i] == Integer.MAX_VALUE && bucketsMax[i] == Integer.MIN_VALUE)
+                continue; // empty bucket
+	    // min value minus the previous value is the current gap
+            res = Math.max(res, bucketsMin[i] - pre);
+            pre = bucketsMax[i];
+        }
+        res = Math.max(res, max - pre); // updata the final max value gap
+        return res;
+    }
+}
+
+/*
+Thinking:
+1. Bucket Sort.
+2. Suppose there are N elements and they range from A to B.
+Then the maximum gap will be no smaller than ceiling[(B - A) / (N - 1)].
+
+Let the length of a bucket to be len = ceiling[(B - A) / (N - 1)], 
+then we will have at most num = (B - A) / len + 1 of bucket.
+
+for any number K in the array, we can easily find out which bucket it belongs by calculating
+loc = (K - A) / len and therefore maintain the maximum and minimum elements in each bucket.
+
+Since the maximum difference between elements in the same buckets will be at most len - 1, 
+so the final answer will not be taken from two elements in the same buckets.
+
+For each non-empty buckets p, find the next non-empty buckets q, 
+then q.min - p.max could be the potential answer to the question. 
+Return the maximum of all those values.
+*/
