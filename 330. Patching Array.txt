@@ -1,0 +1,28 @@
+/*Time complexity : O(m + logn). 
+    In each iteration, we either increase the index i or we double the variable miss. The total number of increment     for index i is m and the total number of doubling miss is logn.
+  Space complexity : O(1).
+*/
+class Solution {
+    public int minPatches(int[] nums, int n) {
+        long miss = 1;
+        int res = 0, i = 0;
+        while (miss <= n) {
+            if (i < nums.length && nums[i] <= miss) {
+                miss += nums[i++];
+            } else {
+                miss += miss;
+                res++;
+            }
+        }
+        return res;
+    }
+}
+
+/*
+Thinking:
+1.  Let miss be the smallest sum in [0,n] that we might be missing. 
+    Meaning we already know we can build all sums in [0,miss).
+2.  Then if we have a number num <= miss in the given array, we can add it to those smaller sums to build all sums     in [0,miss+num).
+3.  If we don't, then we must add such a number to the array, and it's best to add miss itself, to maximize the         reach.
+4.  // use long to avoid integer overflow error.
+*/
