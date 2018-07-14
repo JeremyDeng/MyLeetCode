@@ -1,3 +1,4 @@
+//time:O(nlogn),space:O(n)
 /**
  * Definition for an interval.
  * public class Interval {
@@ -7,29 +8,32 @@
  *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
-public class Solution {
+class Solution {
     public List<Interval> merge(List<Interval> intervals) {
-        List<Interval> result = new ArrayList<>();
-        if(intervals == null || intervals.size() == 0) 
-            return result;
-        Collections.sort(intervals, new IntervalComparator());
-        Interval last = intervals.get(0);
-        for(int i = 1; i < intervals.size(); i++){
-            Interval current = intervals.get(i);
-            if(last.end < current.start){
-                result.add(last);
-                last = current;
-            }else if(last.end < current.end)
-                    last.end = current.end;
+        if (intervals == null || intervals.size() == 0) return intervals;
+        Collections.sort(intervals, (a, b) -> a.start - b.start);
+        int start = intervals.get(0).start;
+        int end = intervals.get(0).end;
+        List<Interval> res = new ArrayList<>();
+        for (Interval interval : intervals) {
+            if (interval.start <= end) {
+                end = Math.max(end, interval.end);
+            } else {
+                res.add(new Interval(start, end));
+                start = interval.start;
+                end = interval.end;
+            }
         }
-        result.add(last);
-        return result;
-    }
-    
-    public class IntervalComparator implements Comparator<Interval>{
-        @Override
-        public int compare(Interval a, Interval b){
-            return a.start - b.start;
-        }
+        res.add(new Interval(start, end));
+        return res;
     }
 }
+
+/*
+Thinking:
+1. Use Lambda comparator to sort intervals by their starting points.
+2. Scan from left to right. Update end when ther is overlap.
+3. If start is greater than end, we add previous interval to res and
+   update start and end.
+4. Add last interval to res.
+*/
