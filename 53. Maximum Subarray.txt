@@ -1,0 +1,18 @@
+//time:O(n),space:O(1)
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int res = nums[0];
+        int sum = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            sum = Math.max(nums[i], sum + nums[i]);
+            res = Math.max(res, sum);
+        }
+        return res;
+    }
+}
+
+/*
+Thinking:
+1. Use sum to record current max sum.
+2. Use res to record max sum.
+*/
