@@ -1,0 +1,24 @@
+//time:O(n),sapce:O(1)
+class Solution {
+    public int minSubArrayLen(int s, int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        int res = Integer.MAX_VALUE;
+        int i = 0, j = 0, sum = 0;
+        while (j < nums.length) {
+            sum += nums[j++];
+            while (sum >= s) {
+                res = Math.min(res, j - i);
+                sum -= nums[i++];
+            }
+        }
+        return res == Integer.MAX_VALUE ? 0 : res;
+    }
+}
+
+/*
+Thinking:
+1. Use two pointers to form a sliding window.
+2. j is the end point and i is the start point.
+3. move j and calculate sum until sum >= s,
+   move i and calculate res, then minus nums[i] until sum < s.
+*/
