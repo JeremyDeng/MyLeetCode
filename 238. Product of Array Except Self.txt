@@ -1,18 +1,23 @@
+//time:O(n), space:O(1)
 class Solution {
     public int[] productExceptSelf(int[] nums) {
-        int[] result = new int[nums.length];
-        int left = 1;
-        for(int i = 0; i < nums.length; i++){
-            if(i > 0)
-                left = left * nums[i - 1];
-            result[i] = left;
+        int n = nums.length;
+        int[] res = new int[n];
+        res[0] = 1;
+        for (int i = 1; i < n; i++) {
+            res[i] = res[i - 1] * nums[i - 1];
         }
         int right = 1;
-        for(int i = nums.length - 1; i >= 0; i--){
-            if(i < nums.length - 1)
-                right = right * nums[i + 1];
-            result[i] = result[i] * right;
+        for (int i = n - 1; i >= 0; i--) {
+            res[i] *= right;
+            right *= nums[i];
         }
-        return result;
+        return res;
     }
 }
+
+/*
+Thinking:
+1. we can not use division, so try to solve it with two passes.
+2. res[i] = product of left elements * product of right elements.
+*/
