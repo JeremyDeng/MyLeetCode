@@ -1,0 +1,25 @@
+//time:O(n), space:O(1)
+class Solution {
+    public int maxProduct(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        int max = nums[0], min = nums[0];
+        int res = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            int temp = max;
+            max = Math.max(Math.max(max * nums[i], min * nums[i]), nums[i]);
+            min = Math.min(Math.min(temp * nums[i], min * nums[i]), nums[i]);
+            if (max > res) {
+                res = max;
+            }
+        }
+        return res;
+    }
+}
+
+/*
+Thinking:
+1. Create two variables max and min to record previous max and min value.
+2. Current max should be max between max*nums[i], min*nums[i] and nums[i].
+3. Each time, calculate max and min. 
+4. Update res when max > res.
+*/
