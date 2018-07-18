@@ -1,0 +1,29 @@
+//time:O(n),space:O(1)
+class Solution {
+    public List<String> findMissingRanges(int[] nums, int lower, int upper) {
+        List<String> res = new ArrayList<>();
+        long left = (long)lower, right = (long)upper;
+        for(int num : nums){
+            if(num == left){
+                left++;
+            }else if(left < num){
+                if(left + 1 == num){
+                    res.add(String.valueOf(left));
+                }else{
+                    res.add(left + "->" + (num - 1));
+                }
+                left = (long)num + 1;
+            }
+        }
+        if(left == right) res.add(String.valueOf(left));
+        else if(left < right) res.add(left + "->" + right);
+        return res;
+    }
+}
+
+/*
+Thinking:
+1. Use long to avoid overflow.
+2. Traverse through nums, move pointer left and add missing ranges.
+3. Add last part of missing range.
+*/
