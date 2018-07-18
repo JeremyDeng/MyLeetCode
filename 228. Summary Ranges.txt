@@ -1,42 +1,25 @@
+//time:O(n), space:O(n)
 class Solution {
     public List<String> summaryRanges(int[] nums) {
-        List<String> result = new ArrayList<>();
-        if(nums == null || nums.length == 0) return result;
-        int start = 0, end = 0;
-        for(int i = 0; i < nums.length; i++){
-            if(i + 1 < nums.length && nums[i] + 1== nums[i + 1]) end++;
-            else{
-                if(start == end) {
-                    result.add(Integer.toString(nums[start]));
-                }else {
-                    result.add(nums[start]+"->" + nums[end]);
-                }
-                end++;
-                start = end;
+        List<String> res = new ArrayList<>();
+        if (nums == null || nums.length == 0) return res;
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i];
+            while (i < nums.length - 1 && nums[i] + 1 == nums[i + 1]) {
+                i++;
+            }
+            if (nums[i] != num) {
+                res.add(num + "->" + nums[i]);
+            } else {
+                res.add(num + "");
             }
         }
-        return result;
+        return res;
     }
 }
 
 /*
-class Solution{
-    public List<String> summaryRanges(int[] nums){
-        List<String> result = new ArrayList<>();
-        if(nums == null || nums.length == 0) return result;
-        for(int i = 0; i < nums.length; i++){
-            int a = nums[i];
-            while(i + 1 < nums.length && nums[i] + 1 == nums[i + 1]){
-                i++;
-            }
-            if(a != nums[i]){ 
-                result.add(a + "->" + nums[i]);
-            }
-            else{
-                result.add(a + "");
-            }
-        }
-        return result;
-    }
-}
+Thinking:
+1. Use variable num to record start point.
+2. Use a while loop to move pointer.
 */
