@@ -1,13 +1,25 @@
+//time:O(n), space:O(1)
 class Solution {
     public void moveZeroes(int[] nums) {
+        if (nums == null || nums.length == 0) return;
         int j = 0;
-        for(int i = 0; i < nums.length; i++){
-            if(nums[i] != 0){
-                int temp = nums[j];
-                nums[j] = nums[i];
-                nums[i] = temp;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                swap(nums, i, j);
                 j++;
             }
         }
     }
+    
+    public void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
 }
+
+/*
+Thinking:
+1. Use one pointer to record first zero, and use i to record current element.
+2. Swap nums[i] and nums[j] if current element is not zero.
+*/
