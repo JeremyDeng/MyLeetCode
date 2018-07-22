@@ -1,0 +1,21 @@
+//time:O(n),space:O(1)
+class Solution {
+    public int wiggleMaxLength(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        int pre = 0, res = 1;
+        for (int i = 1; i < nums.length; i++) {
+            int diff = nums[i] - nums[i - 1];
+            if ((diff > 0 && pre <= 0) || (diff < 0 && pre >= 0)) {
+                res++;
+                pre = diff;
+            }
+        }
+        return res;
+    }
+}
+
+/*
+Thinking:
+1. Compare difference and previous difference.
+2. res++ when it forms a peak or valley.
+*/
