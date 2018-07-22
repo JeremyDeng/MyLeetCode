@@ -1,0 +1,19 @@
+//time:O(n), space:O(1)
+class Solution {
+    public void wiggleSort(int[] nums) {
+        for(int i = 1; i < nums.length; i++){
+            if((i % 2 == 1 && nums[i] < nums[i - 1]) || (i % 2 == 0 && nums[i] > nums[i - 1])){
+                int temp = nums[i - 1];
+                nums[i - 1] = nums[i];
+                nums[i] = temp;
+            }
+        }
+    }
+}
+
+/*
+Thinking:
+1. when nums[i] is odd, nums[i] should be >= nums[i - 1],
+   when nums[i] is oven, nums[i] should be <= nums[i - 1].
+2. Swap nums[i] and nums[i - 1] if it's not satisfied.
+*/
