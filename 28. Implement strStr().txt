@@ -1,0 +1,17 @@
+//time:O(n^2),space:O(1)
+class Solution {
+    public int strStr(String haystack, String needle) {
+        if (needle.length() == 0) return 0;
+        for (int i = 0; i <= haystack.length() - needle.length(); i++) {
+            if (haystack.substring(i, i + needle.length()).equals(needle))
+                return i;
+        }
+        return -1;
+    }
+}
+
+/*
+Thinking:
+1. The time complexity of substring() is linear, and it's in a for-loop.
+   So overall time complexity is O(n^2)
+*/
