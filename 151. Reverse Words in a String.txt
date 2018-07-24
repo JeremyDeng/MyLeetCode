@@ -1,0 +1,22 @@
+//time:O(n), space:O(n)
+public class Solution {
+    public String reverseWords(String s) {
+        if (s == null || s.length() == 0) return s;
+        String[] words = s.trim().split(" ");
+        StringBuilder sb = new StringBuilder(); 
+        for (int i = words.length - 1; i >= 0; i--) {
+            if (!words[i].equals("")){
+                sb.append(words[i] + " ");
+            }
+        }
+        return sb.toString().trim();
+    }
+}
+
+/*
+Thinking:
+1. Use trim() to remove space at start and end.
+2. Split string to string array by space.
+3. Create a StringBuilder and append words from back to front.
+4. Convert StringBuilder to string and trim.
+*/
