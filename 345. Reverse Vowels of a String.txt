@@ -1,0 +1,39 @@
+//time:O(n), space:O(n)
+class Solution {
+    public String reverseVowels(String s) {
+        if (s == null || s.length() == 0) return s;
+        char[] ch = s.toCharArray();
+        int i = 0, j = s.length() - 1;
+        while (i < j) {
+            while (i < j && !isVowels(ch[i])) {
+                i++;
+            }
+            while (i < j && !isVowels(ch[j])) {
+                j--;
+            }
+            swap(ch, i, j);
+            i++;
+            j--;
+        }
+        return new String(ch);
+    }
+    
+    public boolean isVowels(char c) {
+        c = Character.toLowerCase(c);
+        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
+    }
+    
+    public void swap(char[] ch, int i, int j) {
+        char temp = ch[i];
+        ch[i] = ch[j];
+        ch[j] = temp;
+    }
+}
+
+/*
+Thinking:
+1. Two pointers.
+2. Convert string to char array.
+3. In the inner while loop, don't forget the condition "start less than end" 
+   while incrementing start and decrementing end. 
+*/
