@@ -1,0 +1,28 @@
+//time:O(n), space:O(n)
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+        if (s == null || s.length() == 0) return true;
+        HashMap<Character, Character> map = new HashMap<>();
+        char[] a = s.toCharArray();
+        char[] b = t.toCharArray();
+        for (int i = 0; i < s.length(); i++) {
+            if (map.containsKey(a[i])) {
+                if (!map.get(a[i]).equals(b[i]))
+                    return false;
+            } else {
+                if (!map.containsValue(b[i]))
+                    map.put(a[i], b[i]);
+                else 
+                    return false;
+            }
+        }
+        return true;
+    }
+}
+
+/*
+Thinking:
+1. Use HashMap.
+2. The mapping between key and value should be unique, so we need to check
+   !map.containsValue.
+*/
