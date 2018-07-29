@@ -1,0 +1,28 @@
+//time:O(n), space:O(n)
+class Solution {
+    public boolean wordPattern(String pattern, String str) {
+        String[] arr = str.split(" ");
+        if (arr.length != pattern.length()) return false;
+        HashMap<Character, String> map = new HashMap<>();
+        for (int i = 0; i < arr.length; i++) {
+            char c = pattern.charAt(i);
+            if (map.containsKey(c)) {
+                if (!map.get(c).equals(arr[i])) {
+                    return false;
+                }
+            } else {
+                if (map.containsValue(arr[i]))
+                    return false;
+                map.put(c, arr[i]);
+            }
+        }
+        return true;
+    }
+}
+
+/*
+Thinking:
+1. Convert string str into string array, splited by space.
+2. Check if arr.length != pattern.length().
+3. Use HashMap. The mapping between c and arr[i] have to be unique.
+*/
