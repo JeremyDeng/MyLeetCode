@@ -1,0 +1,33 @@
+/*
+Time Complexity: O(nmlogm)
+    where n is the length of strs, and m is the maximum length of a string in strs. 
+    The outer loop has complexity O(n) as we iterate through each string. 
+    Then, we sort each string in O(mlogm) time.
+
+Space Complexity: O(nm)
+    n is the length of input string array, and m is the length of string.
+*/
+public class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        if (strs == null || strs.length == 0) return new ArrayList<List<String>>();
+        Map<String, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+            char[] ca = str.toCharArray();
+            Arrays.sort(ca);
+            String s = String.valueOf(ca);
+            if (!map.containsKey(s)) 
+                map.put(s, new ArrayList<String>());
+            map.get(s).add(str);
+        }
+        return new ArrayList<List<String>>(map.values());
+    }
+}
+
+/*
+Thinking:
+1. Use a hashmap, key is sorted string and value is the list of strings from the 
+   initial input that when sorted, are equal to key.
+2. Traverse input, convert each string to charArray and sort.
+   Convert sorted charArray back to string s and store it as key in hashmap.
+3. Return values in hashmap by using map.values().
+*/
