@@ -1,0 +1,38 @@
+//time:O(n * m),space:O(n)
+class Solution {
+    public List<List<String>> groupStrings(String[] strings) {
+        List<List<String>> res = new ArrayList<>();
+        HashMap<String, List<String>> map = new HashMap<>();
+        for(String str : strings){
+            int offset = str.charAt(0) - 'a';
+            String key = "";
+            for(int i = 0; i < str.length(); i++){
+                char c = (char)(str.charAt(i) - offset);
+                if(c < 'a'){
+                    c += 26;
+                }
+                key += c;
+            }
+            if(!map.containsKey(key)){
+                List<String> list = new ArrayList<>();
+                map.put(key, list);
+            }
+            map.get(key).add(str);
+        }
+        for(String key : map.keySet()){
+            List<String> list = map.get(key);
+            Collections.sort(list);
+            res.add(list);
+        }
+        return res;
+    }
+}
+
+/*
+Thinking:
+1. Use HashMap. 
+   The key is a pattern and value is the list of strings that have same pattern.
+2. Traverse string array first, then traverse each string in inner loop.
+3. Find out its pattern by calculating offset.
+4. Sort elements in list and add list to result.
+*/
