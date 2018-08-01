@@ -1,0 +1,60 @@
+//time:O(n),space:O(n)
+class Solution {
+    public String removeDuplicateLetters(String s) {
+        if (s == null || s.length() == 0) return s;
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            map.put(s.charAt(i), i);
+        }
+        char[] res = new char[map.size()];
+        int start = 0, end = findMinLastPos(map);
+        for (int i = 0; i < res.length; i++) {
+            char minChar = 'z' + 1;
+            for (int k = start; k <= end; k++) {
+                if (map.containsKey(s.charAt(k)) && s.charAt(k) < minChar) {
+                    minChar = s.charAt(k);
+                    start = k + 1;
+                }
+            }
+            res[i] = minChar;
+            map.remove(minChar);
+            if (s.charAt(end) == minChar) {
+                end = findMinLastPos(map);
+            }
+        }
+        return new String(res);
+    }
+
+    public int findMinLastPos(HashMap<Character, Integer> map) {
+        int res = Integer.MAX_VALUE;
+        for (int num : map.values()) {
+            res = Math.min(res, num);
+        }
+        return res;
+    }
+}
+
+/*
+Thinking:
+The basic idea is to find out the smallest result letter by letter (one letter at a time). Here is the thinking process for input "cbacdcbc":
+
+find out the last appeared position for each letter;
+c - 7
+b - 6
+a - 2
+d - 4
+find out the smallest index from the map in step 1 (a - 2);
+the first letter in the final result must be the smallest letter from index 0 to index 2;
+repeat step 2 to 3 to find out remaining letters.
+the smallest letter from index 0 to index 2: a
+the smallest letter from index 3 to index 4: c
+the smallest letter from index 4 to index 4: d
+the smallest letter from index 5 to index 6: b
+so the result is "acdb"
+
+Notes:
+
+after one letter is determined in step 3, it need to be removed from the "last appeared position map", and the same letter should be ignored in the following steps
+
+in step 3, the beginning index of the search range should be the index of previous determined letter plus one
+*/
