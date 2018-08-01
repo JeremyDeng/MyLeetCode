@@ -1,0 +1,22 @@
+//time:O(n),space:O(n)
+class Solution {
+    public String convertToTitle(int n) {
+        if(n <= 0)
+            return "";
+        StringBuilder sb = new StringBuilder();
+        while(n > 0){
+            n--;
+            sb.insert(0, (char)('A' + n % 26));
+            n /= 26;
+        }
+        return sb.toString();
+    }
+}
+
+/*
+Thinking:
+1. Create a stringbuilder.
+2. Use sb.insert(position, value).
+3. When calculating the letter we insert, it starts from 'A',
+   so we have to do n-- first.
+*/
