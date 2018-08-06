@@ -1,0 +1,30 @@
+//time:O(n),space:O(1)
+class Solution {
+    public String minWindow(String s, String t) {
+        int[] count = new int[128];
+        for(char c : t.toCharArray()){
+            count[c]++;
+        }
+        int start = 0;
+        int total = t.length();
+        int min = Integer.MAX_VALUE;
+        for(int i = 0, j = 0; i < s.length(); i++){
+            if(count[s.charAt(i)]-- > 0) total--;
+            while(total == 0){
+                if(i - j + 1 < min){
+                    min = i - j + 1;
+                    start = j;
+                }
+                if(++count[s.charAt(j++)] > 0) total++;
+            }
+        }
+        return (min == Integer.MAX_VALUE) ? "" : s.substring(start, start + min);
+    }
+}
+
+/*
+Thinking:
+1. Sliding window.
+2. Move pointer i first. Find next element from t in s.
+3. Move pointer j, check min length of sliding window that contains all elements in t.
+*/
