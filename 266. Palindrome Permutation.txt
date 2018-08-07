@@ -1,0 +1,42 @@
+/*
+//time:O(n),space:O(n)
+class Solution {
+    public boolean canPermutePalindrome(String s) {
+        HashSet<Character> set = new HashSet<>();
+        for(char c : s.toCharArray()){
+            if(set.contains(c)){
+                set.remove(c);
+            } else {
+                set.add(c);
+            }
+        }
+        return set.size() <= 1;
+    }
+}
+*/
+
+//time:O(n),space:O(1)
+class Solution{
+    public boolean canPermutePalindrome(String s){
+        char[] count = new char[256];
+        int res = 0;
+        for(char c : s.toCharArray()){
+            if(count[c] > 0){
+                count[c]--;
+            }else{
+                count[c]++;
+            }
+        }
+        for(int i = 0; i < count.length; i++){
+            if(count[i] != 0) res++;
+        }
+        return res <= 1;
+    }
+}
+
+/*
+Thinking:
+1. Method 1: Use HashSet.
+   Method 2: Use char Array count[].
+2. return if there is one or no single character.
+*/
