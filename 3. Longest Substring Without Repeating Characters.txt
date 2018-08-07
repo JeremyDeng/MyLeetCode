@@ -17,8 +17,9 @@ class Solution {
 
 /*
 Thinking:
-1.Use HashSet to store longest substring.
-2.Index start records the inclusive starting point,
-  Index end records the exclusive ending point.
-3.Each time we add a new element into our set, we calculate the maximum of res.
+1. Use HashSet to store character appeared.
+2. Sliding window.
+3. End point moves first and add new character to set.
+4. When end point meet duplicate character, move start point until substring [start, end)
+   has no repeating characters.
 */
