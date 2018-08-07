@@ -1,0 +1,34 @@
+//time:O(n),space:O(1)
+class Solution {
+    public int lengthOfLongestSubstringKDistinct(String s, int k) {
+        int[] count = new int[256];
+        int j = 0;
+        int num = 0;
+        int res = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (count[s.charAt(i)]++ == 0) {
+                num++;
+            }
+            while (num > k && j < s.length()) { 
+                count[s.charAt(j)]--;
+                if (count[s.charAt(j)] == 0){ 
+                    num--;
+                }
+                j++;
+            }
+            res = Math.max(res, i - j + 1);
+        }
+        return res;
+    }
+}
+
+/*
+Thinking:
+1. Sliding window.
+2. Create an int array with 256 digits.
+3. Move i first.
+   If current character is new, count[s.charAt(i)]++ and num++.
+4. Check if num > k && j < s.length().
+   move j and delete unique character until num <= k.
+5. Calculate res in for loop and return.
+*/
