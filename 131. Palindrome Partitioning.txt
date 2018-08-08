@@ -1,0 +1,45 @@
+//time:O(2^n * n),space:O(n)
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> res = new ArrayList<>();
+        if (s == null || s.length() == 0) return res;
+        helper(res, new ArrayList<>(), s);
+        return res;
+    }
+    
+    public void helper(List<List<String>> res, List<String> list, String s) {
+        if (s.length() == 0) {
+            res.add(new ArrayList<>(list));
+            return;
+        }
+        for (int i = 0; i < s.length(); i++) {
+            if (isPalindrome(s.substring(0, i + 1))) {
+                list.add(s.substring(0, i + 1));
+                helper(res, list, s.substring(i + 1));
+                list.remove(list.size() - 1);
+            }
+        }
+    }
+    
+    public boolean isPalindrome(String s) {
+        for (int i = 0; i < s.length() / 2; i++) {
+            if (s.charAt(i) != s.charAt(s.length() - i - 1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+/*
+Thinking:
+1. Backtracking.
+2. Create a helper method.
+   The recursion stops when s.length() == 0. So we add empty arraylist to res and return.
+3. Check if the first part of substring is palindrome.
+   If so, add it to res and check the rest part of substring.
+4. Remove last string.
+5. Each time we divede the string into two parts, it costs 2^n.
+   Each time, checking isPalindrome costs n.
+   So total time complexity is n * 2^n.
+*/
