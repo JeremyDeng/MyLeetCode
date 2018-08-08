@@ -27,7 +27,7 @@ class Solution {
 Thinking:
 1. Create a globle variable result, which is an empty string.
 2. Cheack edge cases.
-3. Traverse through the string s. find the point that may be the middle point.
+3. Traverse the string s. find the point that may be the middle point.
 4. The mid can be a specific character or between two characters.
 5. Create a helper method, when conditions are satisfied, we extend its range and update result.
 */
