@@ -42,3 +42,15 @@ class Solution {
         return true;
     }
 }
+
+/*
+Thinking:
+1. Create List<List<Integer>> res to store results.
+2. Create a hashmap and put words[i] as key and index i as value.
+3. Traverse the string array words.
+      Traverse each word.
+          Check if first part is Palindrome and add to res if map contains reversed second part.
+          Check if second part is Palindrome and add to res if map contains reversed first part.
+4. Traversing string array costs n, traversing words[i] costs k, and checking if it's palindrome costs k as well.
+   So total time complexity is n * k^2. n is the length of words, k is the max length of words[i].
+*/
