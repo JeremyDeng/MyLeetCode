@@ -16,6 +16,6 @@ class Solution {
 Thinking:
 1. GCD : Greatest common divisor.
 2. x * m + y * n = z
-     ????B�zout's identity : z = gcd(x,y) * i  z % gcd(x,y) = 0
-     GCD : ??????(a,b)
+     贝祖定理Bézout's identity : z = gcd(x,y) * i  z % gcd(x,y) = 0
+     GCD : 求最大公约数(a,b)
 */
