@@ -1,0 +1,32 @@
+//time:O(logn),space:O(1)
+class Solution {
+    public boolean isPerfectSquare(int num) {
+        int low = 1, high = num;
+        while (low <= high) {
+            long mid = (high - low) / 2 + low;
+            if (mid * mid == num){
+                return true;
+            } else if (mid * mid > num) {
+                high = (int)mid - 1;
+            } else {
+                low = (int)mid + 1;
+            }
+        }
+        return false;
+    }
+}
+
+/*
+Thinking:
+1. we have to use long for mid to avoid mid*mid from overflow.
+
+2. Another way is to use Newton Method to calculate the square root or num.
+
+    public boolean isPerfectSquare(int num) {
+            long x = num;
+            while (x * x > num) {
+                x = (x + num / x) >> 1;
+            }
+            return x * x == num;
+    }
+*/
