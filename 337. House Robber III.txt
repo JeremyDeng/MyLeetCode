@@ -1,0 +1,32 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+//time:O(n), space:O(n)
+class Solution {
+    public int rob(TreeNode root) {
+        if (root == null) return 0;
+        int val = 0;
+        if (root.left != null) {
+            val += rob(root.left.left) + rob(root.left.right);
+        }
+        if (root.right != null) {
+            val += rob(root.right.left) + rob(root.right.right);
+        }
+        return Math.max(val + root.val, rob(root.left) + rob(root.right));
+    }
+}
+
+/*
+Thinking:
+1. Use recursion. It's a combination of postorder and preorder.
+2. return zero when current root is equal to null.
+3. There are two ways.
+   Rob current root and root.left.left and root.right.right,
+   and Rob root.left and root.right.
+*/
