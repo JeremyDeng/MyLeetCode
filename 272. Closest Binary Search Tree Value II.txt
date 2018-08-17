@@ -1,0 +1,30 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+//Inorder. time:O(n), space:O(n)
+class Solution {
+    public List<Integer> closestKValues(TreeNode root, double target, int k) {
+        LinkedList<Integer> res = new LinkedList<>();
+        helper(res, root, target, k);
+        return res;
+    }
+    
+    private void helper(LinkedList<Integer> res, TreeNode root, double target, int k){
+        if (root == null) return;
+        helper(res, root.left, target, k);
+        if (res.size() == k) {
+            if (Math.abs(target - root.val) < Math.abs(target - res.peekFirst())) {
+                res.removeFirst();
+            } else
+                return;
+        }
+        res.add(root.val);
+        helper(res, root.right, target, k);
+    }
+}
