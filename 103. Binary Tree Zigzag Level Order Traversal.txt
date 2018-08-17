@@ -1,0 +1,67 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+//recursion, use ArrayList.add(0,e) or LinkedList.addFirst()
+//time:O(n), space:O(n)
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        travel(root, res, 0);
+        return res;
+    }
+    
+    private void travel(TreeNode cur, List<List<Integer>> res, int level){
+        if(cur == null) return;
+        if(res.size() <= level){
+            res.add(new ArrayList<>());
+        }
+        List<Integer> tempList = res.get(level);
+        if(level % 2 == 0)
+            tempList.add(cur.val);
+        else
+            tempList.add(0, cur.val);
+        travel(cur.left, res, level + 1);
+        travel(cur.right, res, level + 1);
+    }
+}
+
+/*
+//use queue
+public class Solution{
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root){
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) return res;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        boolean zigzag = false;
+        while (!queue.isEmpty()) {
+            List<Integer> level = new ArrayList<>();
+            int cnt = queue.size();
+            for (int i = 0; i < cnt; i++) {
+                TreeNode node = queue.poll();
+                if (zigzag) {
+                    level.add(0, node.val);
+                }
+                else {
+                    level.add(node.val);
+                }
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+            }
+            res.add(level);
+            zigzag = zigzag ? false : true;
+        }
+        return res;
+    }
+}
+*/
