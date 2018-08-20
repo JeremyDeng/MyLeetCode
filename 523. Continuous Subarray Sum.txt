@@ -1,0 +1,32 @@
+//time:O(n), space:O(min(n, k))
+public class Solution {
+    public boolean checkSubarraySum(int[] nums, int k) {
+        if (nums == null || nums.length == 0) return false;
+        int sum = 0;
+        HashMap <Integer, Integer> map = new HashMap<>();
+        map.put(0, -1);
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if (k != 0)
+                sum = sum % k;
+            if (map.containsKey(sum)) {
+                if (i - map.get(sum) > 1)
+                    return true;
+            } else
+                map.put(sum, i);
+        }
+        return false;
+    }
+}
+
+/*
+Thinking:
+1. Calculate accumulated sum and its mod of k.
+2. Create a hashmap.
+   key:   sum%k
+   value: index
+3. If we find same sum%k in hashmap and the difference between indexes >1, return true.
+4. we do sum = sum%k only when k is not 0.
+5. Coner case: nums = [0, 0], k = 0.
+   so we set a defalut mapping in hash map:  map.put(0, -1);
+*/
