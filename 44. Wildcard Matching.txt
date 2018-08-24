@@ -1,0 +1,26 @@
+//time:O(n), space:O(1)
+class Solution {
+    public boolean isMatch(String s, String p) {
+        int indexS = 0, indexP = 0, match = 0, star = -1;
+        while (indexS < s.length()) {
+            if(indexP < p.length() && (p.charAt(indexP) == '?' || s.charAt(indexS) == p.charAt(indexP))) {
+                indexS++;
+                indexP++;
+            } else if (indexP < p.length() && p.charAt(indexP) == '*') {
+                star = indexP;
+                match = indexS;
+                indexP++;
+            } else if(star != -1) {
+                indexP = star + 1;
+                match++;
+                indexS = match;
+            } else {
+                return false;
+            }
+        }
+        while (indexP < p.length() && p.charAt(indexP) == '*') {
+            indexP++;
+        }
+        return indexP == p.length();
+    }
+}
