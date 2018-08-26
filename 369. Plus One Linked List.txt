@@ -1,0 +1,44 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+//time:O(n), sapce:O(1)
+public class Solution {
+    public ListNode plusOne(ListNode head) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode i = dummy;
+        ListNode j = dummy;
+
+        while (j.next != null) {
+            j = j.next;
+            if (j.val != 9) {
+                i = j;
+            }
+        }
+        // i = index of last non-9 digit
+    
+        i.val++;
+        i = i.next;
+        while (i != null) {
+            i.val = 0;
+            i = i.next;
+        }
+        
+        if (dummy.val == 0) return dummy.next;
+        return dummy;
+    }
+}
+
+/*
+Thinking:
+1. Traverse the LinkedList, find the last non-9 digit.
+2. i.val++ then i = i.next.
+3. Set all digits to 0 if i!=null.
+4. Check if dummy.val == 0.
+   Because if all digits are 9, we have to set dummy to 1.
+*/
