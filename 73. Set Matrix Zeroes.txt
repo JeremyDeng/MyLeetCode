@@ -1,31 +1,39 @@
+//time:O(n*m), space:O(1)
 class Solution {
     public void setZeroes(int[][] matrix) {
-        boolean firstRow = false, firstColumn = false;
-        int m = matrix.length, n = matrix[0].length;
-        for(int i = 0; i < m; i++){
-            for(int j = 0; j < n; j++){
-                if(matrix[i][j] == 0){
-                    if(i == 0) firstRow = true;
-                    if(j == 0) firstColumn = true;
+        if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0)
+            return;
+        int col0 = 1;
+        int row = matrix.length;
+        int col = matrix[0].length;
+        
+        for (int i = 0; i < row; i++){
+            if (matrix[i][0] == 0) 
+                col0 = 0;
+            for (int j = 1;j < col; j++){
+                if (matrix[i][j] == 0) {  
                     matrix[i][0] = 0;
                     matrix[0][j] = 0;
                 }
-            }
+            } 
         }
-        for(int i = 1; i < m; i++){
-            for(int j = 1; j < n; j++){
-                if(matrix[i][0] == 0 || matrix[0][j] == 0) matrix[i][j] = 0;
+        for (int i = row - 1; i >= 0; i--) {
+            for (int j = col - 1; j >= 1; j--) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+                    matrix[i][j] = 0; 
+                }
             }
-        }
-        if(firstRow){
-            for(int j = 0; j < n; j++){
-                matrix[0][j] = 0;
-            }
-        }
-        if(firstColumn){
-            for(int i = 0; i < m; i++){
-                matrix[i][0] = 0;
-            }
-        }
+            if (col0 == 0) matrix[i][0] = 0;
+        }  
     }
 }
+
+/*
+Thinking:
+1. Use first row and column to record if current row/col should be zero.
+2. Use col0 to record if first column should be zero.
+3. Traverse from [0][0] to [row-1][col-1].
+   if any number is 0 at first column, set col0 = 0.
+4. Traverse from [row-1][col-1] to [0][0].
+   if col0 == 0, set first column to 0.
+*/
