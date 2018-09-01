@@ -1,0 +1,44 @@
+//time:O(m*n), space:O(n)
+class Solution {
+    public int maxKilledEnemies(char[][] grid) {
+        if (grid == null || grid.length == 0 || grid[0].length == 0) return 0;
+        int m = grid.length, n = grid[0].length;
+        int rowCount = 0;
+        int[] colCount = new int[n];
+        int res = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (j == 0 || grid[i][j - 1] == 'W') {
+                    rowCount = 0;
+                    for (int k = j; k < n && grid[i][k] != 'W'; k++) {
+                        rowCount += grid[i][k] == 'E' ? 1 : 0;
+                    }
+                }
+                if (i == 0 || grid[i - 1][j] == 'W') {
+                    colCount[j] = 0;
+                    for (int k = i; k < m && grid[k][j] != 'W'; k++) {
+                        colCount[j] += grid[k][j] == 'E' ? 1 : 0;
+                    }
+                }
+                if (grid[i][j] == '0') {
+                    res = Math.max(res, colCount[j] + rowCount);
+                }
+            }
+        }
+        return res;
+    }
+}
+
+/*
+Thinking:
+1. Use rowCount and colCount[] to record the number of anemies.
+   Because the sequence we scan the grid is from row to next row.
+   We can calculate how many enemies are in current row and store it as a variabel.
+   But column changes everytime, so we need to create an array.
+2. Traverse the grid.
+   Horizontally, if current position is starting point or previous position is wall,
+   we traverse to end and record the number of enemies.
+   Vertically, if current position is starting point or upper position is wall,
+   we traverse downwards to the end and record the number of enemies.
+3. When grid[i][j] == 0, update max result.
+*/
