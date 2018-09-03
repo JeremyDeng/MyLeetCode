@@ -1,5 +1,5 @@
 //BFS + DFS
-//???->BFS->tree->DFS->res
+//无向图->BFS->tree->DFS->res
 //time: O(V+E)*wordList(max(length))
 //spave: O(n)
 class Solution {
