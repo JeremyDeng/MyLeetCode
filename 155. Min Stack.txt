@@ -1,0 +1,71 @@
+// use one stack: time:O(1), space:O(n)
+class MinStack {
+    Stack<Integer> s = new Stack<>();
+    int min = Integer.MAX_VALUE;
+    
+    public void push(int x) {
+        if(x <= min){
+            s.push(min);
+            min = x;
+        }
+        s.push(x);
+    }
+    
+    public void pop() {
+        int peek = s.pop();
+        if(peek == min){
+            min = s.pop();
+        }
+    }
+    
+    public int top() {
+        return s.peek();
+    }
+    
+    public int getMin() {
+        return min;
+    }
+}
+
+/*
+//use two stack:
+public class MinStack{
+    private Stack<Integer> s;
+    private Stack<Integer> mins;
+    
+    public MinStack(){
+        s = new Stack<>();
+        mins = new Stack<>();
+    }
+    
+    public void push(int x){
+        s.push(x);
+        if(mins.isEmpty()){
+            mins.push(x);
+        }else{
+            mins.push(Math.min(x, mins.peek()));
+        }
+    }
+    
+    public int pop(){
+        mins.pop();
+        return s.pop();
+    }
+    
+    public int top(){
+        return s.peek();
+    }
+    
+    public int getMin(){
+        return mins.peek();
+    }
+}
+*/
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(x);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
