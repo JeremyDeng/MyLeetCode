@@ -1,17 +1,44 @@
+//time:O(n), space:O(n)
 class Solution {
     public int largestRectangleArea(int[] heights) {
-        Stack<Integer> s = new Stack<Integer>();
-        int maxArea = 0;
-        for(int i = 0; i <= heights.length;){
+        if(heights == null || heights.length == 0)
+            return 0;
+        Stack<Integer> s = new Stack<>();
+        int res = 0;
+        for(int i = 0; i <= heights.length; i++){
             int h = (i == heights.length ? 0 : heights[i]);
-            if(s.isEmpty() || h >= heights[s.peek()]){
-                s.push(i);
-                i++;
-            }else{
-                int top = s.pop();
-                maxArea = Math.max(maxArea, heights[top] * (s.isEmpty() ? i : i - 1 - s.peek()));
+            while(!s.isEmpty() && h < heights[s.peek()]){
+                int height = heights[s.pop()];
+                int start = s.isEmpty() ? -1 : s.peek();
+                int area = height * (i - start - 1);
+                res = Math.max(res, area);
             }
+            s.push(i);
         }
-        return maxArea;
+        return res;
     }
 }
+
+/*
+Thinking:
+1. Create a stack.
+2. Traverse i from 0 to heights.length.
+   Store index of height in stack in ascending order.
+3. While stack is not empty and current height is smaller than height[s.peek()],
+   pop the top element and calculater area.
+   
+   stack : 1,??,2,??,??
+      0,1,2,3,4,5,6
+     [2,1,5,6,2,3,0]
+     stack : 1
+     2 : push
+     1 : height = 2 start = -1 res = 2
+     5 : push
+     6 : push
+     2 : height = 6 start = 2 area = 6 res = 6
+         height = 5 start = 1 area = 10 res = 10
+     3 push
+     0 : height = 2 start = 1 area = 8
+         height = 1 start = -1 area = 6
+     res = 10
+*/
