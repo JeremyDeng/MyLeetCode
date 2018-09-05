@@ -27,7 +27,7 @@ Thinking:
 3. While stack is not empty and current height is smaller than height[s.peek()],
    pop the top element and calculater area.
    
-   stack : 1,??,2,??,??
+   stack : 1，升序，2，小于，计算
       0,1,2,3,4,5,6
      [2,1,5,6,2,3,0]
      stack : 1
