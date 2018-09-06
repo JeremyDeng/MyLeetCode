@@ -1,5 +1,5 @@
 /*
-//????:O(nlogn), space:O(n)
+//优先队列:O(nlogn), space:O(n)
 class Solution {
     public int findKthLargest(int[] nums, int k) {
         PriorityQueue<Integer> p = new PriorityQueue<>();
@@ -14,7 +14,7 @@ class Solution {
 */
 
 /*
-//???:time:O(nlogn), space:O(1)
+//排序法:time:O(nlogn), space:O(1)
 public class Solution{
     public int findKthLargest(int[] nums, int k){
         Arrays.sort(nums);
@@ -23,7 +23,7 @@ public class Solution{
 }
 */
 
-//????:time:O(n), space:O(1)
+//快速选择:time:O(n), space:O(1)
 public class Solution {
   
   public int findKthLargest(int[] a, int k) {
