@@ -33,7 +33,7 @@ public class Solution {
   }
   
   // return the index of the kth smallest number
-  int quickSelect(int[] a, int lo, int hi, int k) {
+  private int quickSelect(int[] a, int lo, int hi, int k) {
     // use quick sort's idea
     // put nums that are <= pivot to the left
     // put nums that are  > pivot to the right
@@ -54,7 +54,7 @@ public class Solution {
     else            return quickSelect(a, i + 1, hi, k - m);
   }
   
-  void swap(int[] a, int i, int j) {
+  private void swap(int[] a, int i, int j) {
     int tmp = a[i];
     a[i] = a[j];
     a[j] = tmp;
