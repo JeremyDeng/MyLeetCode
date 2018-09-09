@@ -1,0 +1,44 @@
+//time:O(n^2),space:O(n)
+class Solution {
+    public List<int[]> getSkyline(int[][] buildings) {
+        List<int[]> res = new ArrayList<>();
+        List<int[]> heights = new ArrayList<>();
+        for(int[] b : buildings){
+            heights.add(new int[]{b[0], -b[2]});
+            heights.add(new int[]{b[1], b[2]});
+        }
+        Collections.sort(heights, (a, b) -> (a[0] == b[0]) ? a[1] - b[1] : a[0] - b[0]);
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> (b - a));
+        pq.offer(0);
+        int prev = 0;
+        for(int[] h : heights){
+            if(h[1] < 0){
+                pq.offer(-h[1]);
+            }else{
+                pq.remove(h[1]);
+            }
+            int cur = pq.peek();
+            if(prev != cur){
+                res.add(new int[]{h[0], cur});
+                prev = cur;
+            }
+        }
+        return res;
+    }
+}
+
+/*
+Thinking:
+1. Use sweeping line and priority queue.
+2. Create a list heights.
+3. Store starting point b[0],-b[2] and ending point b[1],b[2].
+   the reason why we store -b[2] is because we want to distinguish
+   starting and ending point.
+4. Sort heights in ascending order.
+   If they have same position, compare height.
+5. Create a priority queue that store data in descending order.
+   Offer zero at initial value.
+6. If it's a starting point. Offer -h[1].
+   If it's an ending point. Remove h[1].
+   Sweep from left to right and update res.
+*/
