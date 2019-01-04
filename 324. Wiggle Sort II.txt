@@ -32,8 +32,8 @@ class Solution {
                           l
      median = 5
      nums[] = 5
-     ?????,? - ?,?
-     ?????,? - ?,?
+     大于中位数，左 - 右，奇
+     小于中位数，右 - 左，偶
      time : O(n)
      space : O(1)
      * @param nums
