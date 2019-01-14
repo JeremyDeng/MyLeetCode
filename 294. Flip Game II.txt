@@ -1,5 +1,5 @@
 //time:O(n!!), double factorial n
-//T(N) = (N-2) * T(N-2) = (N-2) * (N-4) * T(N-4) ... = (N-2) * (N-4) * (N-6) * ... ~ O(N!!)
+//T(N) = (N-1) * T(N-2) = (N-1) * (N-3) * T(N-4) ... = (N-1) * (N-3) * (N-5) * ... ~ O(N!!)
 class Solution {
     public boolean canWin(String s) {
         if (s == null || s.length() == 0) return false;
